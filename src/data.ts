@@ -8,7 +8,7 @@ export interface Tarea{
     descripcion: string;
     estado: string;
     dificultad: number;
-    vencimiento: Date;
+    vencimiento: Date | null;
     creacion: Date;
     edicion: Date;
 }
