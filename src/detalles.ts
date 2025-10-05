@@ -1,13 +1,13 @@
 // Modulo detalles.js
-const { tareas } = require("./data");
-const { input } = require("./entradas");
-const { editarTarea } = require("./editar");
+import { tareas } from "./data";
+import { input } from "./entradas";
+import { editarTarea } from "./editar";
 
 //Funcion para el bonus de las estrellas
-function formatDificultad(nivel) {
+function formatDificultad(nivel: number): string {
   //switch que retorna la cantidad de estrellas segun el entero
   //esto funciona gracias al parseInt
-  switch (parseInt(nivel)) {
+  switch (nivel) {
     case 1: return "★☆☆ (Fácil)";
     case 2: return "★★☆ (Medio)";
     case 3: return "★★★ (Difícil)";
@@ -17,7 +17,7 @@ function formatDificultad(nivel) {
 
 //funcion principal del modulo para mostrar los detalles de la tarea
 //recibe el indice que viene del index.js
-async function menuDetalles(indice) {
+async function menuDetalles(indice: number): Promise<void> {
 //recibe los datos de la tarea con el indice seleccionado
   let tarea = tareas[indice];
 
@@ -50,4 +50,4 @@ async function menuDetalles(indice) {
   }
 }
 
-module.exports = { menuDetalles };
+export { menuDetalles };
