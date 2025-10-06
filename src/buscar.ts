@@ -9,7 +9,7 @@ async function menuBuscar(): Promise <void> {
   console.log("\n=== BUSCAR TAREA ===");
 
   //se pide al usuario un texto para buscar el titulo
-  let clave = (await input("Introduce el título de una tarea para buscarla: ")).trim().toLowerCase;
+  let clave:string = (await input("Introduce el título de una tarea para buscarla: ")).trim().toLowerCase();
 
   //evalua si esta vacia la variable clave, null o undefined.
   if (clave === "") {
@@ -25,7 +25,7 @@ async function menuBuscar(): Promise <void> {
   //recorre todas las tareas
   for (let i = 0; i < tareas.length; i++) {
     //convierte ambos a minusculas, includes verifica si el titulo contiene la palabra clave
-    if (tareas[i].titulo.toLowerCase().includes(clave())) {
+    if (tareas[i].titulo.toLowerCase().includes(clave)) {
       indices[contador] = i;
       contador++;
       //si hay coincidencia se guarda el indice de esa tarea en indices
