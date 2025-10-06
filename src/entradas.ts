@@ -1,6 +1,6 @@
 // 1. Importar readline para pedir datos por consola
 //modifico la forma de importar de commonJS a ES6
-import readline from "readline";
+import * as readline from "readline";
 
 // 2. Crear la interfaz para leer y escribir en consola
 const rl = readline.createInterface({
