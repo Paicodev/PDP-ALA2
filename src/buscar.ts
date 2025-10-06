@@ -1,18 +1,18 @@
 // buscar.js
 //modulos importados
-const { tareas } = require("./data");
-const { input } = require("./entradas");
-const { menuDetalles } = require("./detalles");
+import { tareas } from "./data";
+import { input } from "./entradas";
+import { menuDetalles } from "./detalles";
 
 //la funcion imprime un menu de busqueda
-async function menuBuscar() {
+async function menuBuscar(): Promise <void> {
   console.log("\n=== BUSCAR TAREA ===");
 
   //se pide al usuario un texto para buscar el titulo
-  let clave = (await input("Introduce el título de una tarea para buscarla: ")).trim();
+  let clave = (await input("Introduce el título de una tarea para buscarla: ")).trim().toLowerCase;
 
   //evalua si esta vacia la variable clave, null o undefined.
-  if (!clave) {
+  if (clave === "") {
     console.log("No ingresaste ninguna clave.\n");
     await input("Presiona cualquier tecla para continuar…");
     return; // volver al menú principal
@@ -20,18 +20,20 @@ async function menuBuscar() {
 
   // buscar tareas cuyo título contenga la clave 
   //en este arreglo se almacenaran posiciones coincidentes
-  const indices = [];
+  const indices: number [] = [];
+  let contador = 0;
   //recorre todas las tareas
   for (let i = 0; i < tareas.length; i++) {
     //convierte ambos a minusculas, includes verifica si el titulo contiene la palabra clave
-    if (tareas[i].titulo.toLowerCase().includes(clave.toLowerCase())) {
-      indices[indices.length] = i;
+    if (tareas[i].titulo.toLowerCase().includes(clave())) {
+      indices[contador] = i;
+      contador++;
       //si hay coincidencia se guarda el indice de esa tarea en indices
     }
   }
 
   //Si no hay coincidencias muestra el mensaje por consola
-  if (indices.length === 0) {
+  if (contador === 0) {
     console.log(`\nNo hay tareas relacionadas con la búsqueda.\n`);
     await input("Presiona cualquier tecla para continuar…");
     return;
@@ -39,7 +41,7 @@ async function menuBuscar() {
 
   //muestra todas las tareas coincidentes con numeracion local
   console.log("\nEstas son las tareas relacionadas:");
-  for (let j = 0; j < indices.length; j++) {
+  for (let j = 0; j < contador; j++) {
     console.log(`[${j + 1}] ${tareas[indices[j]].titulo} [${tareas[indices[j]].estado}]`);
   }
   console.log("");
@@ -51,7 +53,7 @@ async function menuBuscar() {
     let num = parseInt(opcion, 10);
 
     //detecta si la opcion es invalida.
-    if (isNaN(num) || num < 0 || num > indices.length) {
+    if (isNaN(num) || num < 0 || num > contador) {
       console.log("Opción inválida, intenta nuevamente.\n");
       continue;
     }
@@ -63,4 +65,4 @@ async function menuBuscar() {
   }
 }
 
-module.exports = { menuBuscar };
+export { menuBuscar };
